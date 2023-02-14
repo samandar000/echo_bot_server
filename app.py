@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 TOKEN = os.environ['TOKEN']
 
-@app.route('/webhook',methods=['GET'])
+@app.route('/webhook',methods=['POST'])
 def webhook():
      
     data = requests.get_json(force=True)
