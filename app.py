@@ -1,6 +1,5 @@
 from flask import Flask,request
 import os
-import requests
 from telegram import Bot, Update
 
 
@@ -24,7 +23,8 @@ def webhook():
     text = update.message.text
 
     # sendMessage
-    bot.send_message(chat_id, text)
+    if text != None:
+        bot.send_message(chat_id, text)
 
     return 'ok'
 
