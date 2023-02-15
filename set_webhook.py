@@ -1,7 +1,7 @@
 import requests
 import os
 
-url = 'https://pardayevsamandar.pythonanywhere.com/webhook'
+url = 'https://ranpo.pythonanywhere.com/webhook'
 
 TOKEN = os.environ["TOKEN"]
 
