@@ -20,9 +20,11 @@ def webhook():
 
     # get chat_id, text from update
     chat_id = update.message.chat.id
+    
     text = update.message.text
 
     # sendMessage
+    
     if text != None:
         bot.send_message(chat_id, text)
 
