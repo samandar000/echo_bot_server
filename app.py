@@ -3,8 +3,6 @@ import os
 from telegram import Bot, Update
 
 
-
-
 app = Flask(__name__)
 
 TOKEN = os.environ['TOKEN']
@@ -16,7 +14,7 @@ def webhook():
     data = request.get_json(force=True)
 
     # update
-    update: Update = Update.de_json(data, bot)
+    update = Update.de_json(data, bot)
 
     # get chat_id, text from update
     chat_id = update.message.chat.id
@@ -24,7 +22,6 @@ def webhook():
     text = update.message.text
 
     # sendMessage
-    
     if text != None:
         bot.send_message(chat_id, text)
 
