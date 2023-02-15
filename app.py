@@ -24,7 +24,7 @@ def webhook():
     # sendMessage
     if text != None:
         bot.send_message(chat_id, text)
-
+    print(update)
     return 'ok'
 
 
