@@ -1,30 +1,56 @@
 from flask import Flask,request
-import os
 from telegram import Bot, Update
+from telegram.ext import Dispatcher,MessageHandler,CommandHandler,Filters
+import os
 
+from main import(start,dog,cat)
 
 app = Flask(__name__)
 
 TOKEN = os.environ['TOKEN']
 bot = Bot(TOKEN)
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['POST','GET'])
 def webhook():
-    # get data from request
-    data = request.get_json(force=True)
+    
+    if request.method == 'GET':
+        return 'hi from Python-2022I'
+    elif request.method == 'POST':
+        data = request.get_json(force=True)
 
-    # update
-    update = Update.de_json(data, bot)
+        update: Update = Update.de_json(data,bot)
+        print(update)
 
-    # get chat_id, text from update
-    chat_id = update.message.chat.id
-    chat = update.message
-    text = update.message.text
+        dp: Dispatcher = Dispatcher(bot,None,workers=0)
 
-    # sendMessage
-    if text != None:
-        bot.send_message(chat_id, text)
-    print(chat)
-    return 'ok'
+        dp.add_handler(CommandHandler('start',start))
+        dp.add_handler(MessageHandler('🐶 Dog',dog))
+        dp.add_handler(MessageHandler('🐈 Cat',cat))
+
+        dp.process_update(update)
+        return 'Hello'
+        
+
+    
+    
+    
+    
+    
+    # # get data from request
+    # data = request.get_json(force=True)
+
+    # # update
+    # update = Update.de_json(data, bot)
+
+    # # get chat_id, text from update
+    # chat_id = update.message.chat.id
+    # chat = update.message
+    # text = update.message.text
+
+    # # sendMessage
+    # if text != None:
+    #     bot.send_message(chat_id, text)
+    # print(chat)
+    # return 'ok'
 
 
